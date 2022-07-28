@@ -226,7 +226,7 @@ func init() {
         },
         "x-direktiv-examples": [
           {
-            "content": "- id: gcp\n  type: action\n  action:\n    function: gcp\n    secrets: [\"gcpJSONKey\", \"gcpProject\", \"gcpAccount\"]\n    input: \n      account: jq(.secrets.gcpAccount)\n      project: jq(.secrets.gcpProject)\n      key: jq(.secrets.gcpJSONKey)\n      commands:\n      - command: gcloud compute instances list --format=json",
+            "content": "- id: gcp\n  type: action\n  action:\n    function: gcp\n    secrets: [\"gcpJSONKey\", \"gcpProject\", \"gcpAccount\"]\n    input: \n      account: jq(.secrets.gcpAccount)\n      project: jq(.secrets.gcpProject)\n      key: jq(.secrets.gcpJSONKey | @base64 )\n      commands:\n      - command: gcloud compute instances list --format=json",
             "title": "Basic"
           }
         ],
@@ -426,7 +426,7 @@ func init() {
         },
         "x-direktiv-examples": [
           {
-            "content": "- id: gcp\n  type: action\n  action:\n    function: gcp\n    secrets: [\"gcpJSONKey\", \"gcpProject\", \"gcpAccount\"]\n    input: \n      account: jq(.secrets.gcpAccount)\n      project: jq(.secrets.gcpProject)\n      key: jq(.secrets.gcpJSONKey)\n      commands:\n      - command: gcloud compute instances list --format=json",
+            "content": "- id: gcp\n  type: action\n  action:\n    function: gcp\n    secrets: [\"gcpJSONKey\", \"gcpProject\", \"gcpAccount\"]\n    input: \n      account: jq(.secrets.gcpAccount)\n      project: jq(.secrets.gcpProject)\n      key: jq(.secrets.gcpJSONKey | @base64 )\n      commands:\n      - command: gcloud compute instances list --format=json",
             "title": "Basic"
           }
         ],

@@ -5,6 +5,7 @@ Feature: Basic
 Background:
 * def gcpJSONKey = karate.properties['gcpJSONKey']
 * def gcpProject = karate.properties['gcpProject']
+* def gcpAccount = karate.properties['gcpAccount']
 
 
 Scenario: get request
@@ -16,9 +17,10 @@ Scenario: get request
 	And header Direktiv-TempDir = '/tmp'
 	And request
 	"""
-	{	
+	{
 		"project": "#(gcpProject)",
 		"key": "#(gcpJSONKey)",
+		"account": "#(gcpAccount)",
 		"commands": [
 		{
 			"command": "gcloud compute instances list --format=json",
