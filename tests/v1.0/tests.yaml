@@ -12,7 +12,7 @@ states:
       account: jq(.secrets.gcpAccount)
       commands:
       - command: gcloud compute instances list --format=json
-      key: jq(.secrets.gcpJSONKey)
+      key: jq(.secrets.gcpJSONKey | @base64 )
       project: jq(.secrets.gcpProject)
     secrets:
     - gcpJSONKey
