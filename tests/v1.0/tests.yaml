@@ -1,0 +1,25 @@
+url: ""
+functions:
+- type: knative-workflow
+  id: gcp
+  image: gcr.io/direktiv/apps/gcp:test
+states:
+- id: state0
+  type: action
+  action:
+    function: gcp
+    input:
+      commands:
+      - command: Example of running gcp
+  transition: state1
+- id: state1
+  type: action
+  action:
+    function: gcp
+    input:
+      commands:
+      - command: Example of running gcp
+      files:
+      - data: Hello World
+        mode: "0755"
+        name: hello.txt
