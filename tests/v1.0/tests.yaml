@@ -9,17 +9,12 @@ states:
   action:
     function: gcp
     input:
+      account: jq(.secrets.gcpAccount)
       commands:
-      - command: Example of running gcp
-  transition: state1
-- id: state1
-  type: action
-  action:
-    function: gcp
-    input:
-      commands:
-      - command: Example of running gcp
-      files:
-      - data: Hello World
-        mode: "0755"
-        name: hello.txt
+      - command: gcloud compute instances list --format=json
+      key: jq(.secrets.gcpJSONKey)
+      project: jq(.secrets.gcpProject)
+    secrets:
+    - gcpJSONKey
+    - gcpProject
+    - gcpAccount

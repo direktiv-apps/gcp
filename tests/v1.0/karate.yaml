@@ -10,13 +10,15 @@ states:
     function: karate
     input:
       commands:
-      - command: java -DtestURL=jq(.host) -DgcpSecret=jq(.secrets.gcpSecret) -jar
-          /karate.jar test.feature
+      - command: java -DtestURL=jq(.host) -DgcpJSONKey=jq(.secrets.gcpJSONKey) -DgcpProject=jq(.secrets.gcpProject)
+          -DgcpAccount=jq(.secrets.gcpAccount) -jar /karate.jar test.feature
         print: false
       - command: cat target/karate-reports/karate-summary-json.txt
       logging: info
     secrets:
-    - gcpSecret
+    - gcpJSONKey
+    - gcpProject
+    - gcpAccount
     files:
     - key: test.feature
       scope: workflow

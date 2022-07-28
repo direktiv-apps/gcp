@@ -18,6 +18,7 @@ import (
 type PostParamsBodyCommandsItems struct {
 
 	// Command to run
+	// Example: gcloud compute instances list --format=json
 	Command string `json:"command,omitempty"`
 
 	// Stops excecution if command fails, otherwise proceeds with next command

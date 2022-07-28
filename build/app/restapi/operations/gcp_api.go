@@ -51,7 +51,7 @@ func NewGcpAPI(spec *loads.Document) *GcpAPI {
 	}
 }
 
-/*GcpAPI Run gcp in Direktiv */
+/*GcpAPI Google Cloud CLI */
 type GcpAPI struct {
 	spec            *loads.Document
 	context         *middleware.Context

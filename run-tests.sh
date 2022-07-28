@@ -15,4 +15,9 @@ if [[ -z "${DIREKTIV_SECRET_gcpProject}" ]]; then
 	exit 1
 fi
 
-docker run --network=host -v `pwd`/tests/:/tests direktiv/karate java -DtestURL=${DIREKTIV_TEST_URL} -Dlogback.configurationFile=/logging.xml -DgcpJSONKey="${DIREKTIV_SECRET_gcpJSONKey}" -DgcpProject="${DIREKTIV_SECRET_gcpProject}"  -jar /karate.jar /tests/v1.0/karate.yaml.test.feature ${*:1}
+if [[ -z "${DIREKTIV_SECRET_gcpAccount}" ]]; then
+	echo "Secret gcpAccount is required, set it with DIREKTIV_SECRET_gcpAccount"
+	exit 1
+fi
+
+docker run --network=host -v `pwd`/tests/:/tests direktiv/karate java -DtestURL=${DIREKTIV_TEST_URL} -Dlogback.configurationFile=/logging.xml -DgcpJSONKey="${DIREKTIV_SECRET_gcpJSONKey}" -DgcpProject="${DIREKTIV_SECRET_gcpProject}" -DgcpAccount="${DIREKTIV_SECRET_gcpAccount}"  -jar /karate.jar /tests/v1.0/karate.yaml.test.feature ${*:1}

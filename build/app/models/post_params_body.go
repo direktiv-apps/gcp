@@ -21,17 +21,23 @@ import (
 // swagger:model postParamsBody
 type PostParamsBody struct {
 
+	// Google Cloud service account name
+	// Example: myserviceaccount@myproject.iam.gserviceaccount.com
+	// Required: true
+	Account *string `json:"account"`
+
 	// Array of commands.
 	Commands []*PostParamsBodyCommandsItems `json:"commands"`
 
 	// File to create before running commands.
 	Files []apps.DirektivFile `json:"files"`
 
-	// Google cloud JSON key base64 encoded
+	// Google Cloud JSON key base64 encoded
+	// Example: L05ZXG4wTjJSZXQ2NGdYblc0c201a3hZV1R2MFFObnN2V2Vqc1==
 	// Required: true
 	Key *string `json:"key"`
 
-	// project
+	// Google Cloud project name
 	// Required: true
 	Project *string `json:"project"`
 }
@@ -39,6 +45,10 @@ type PostParamsBody struct {
 // Validate validates this post params body
 func (m *PostParamsBody) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateAccount(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateCommands(formats); err != nil {
 		res = append(res, err)
@@ -59,6 +69,15 @@ func (m *PostParamsBody) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *PostParamsBody) validateAccount(formats strfmt.Registry) error {
+
+	if err := validate.Required("account", "body", m.Account); err != nil {
+		return err
+	}
+
 	return nil
 }
 

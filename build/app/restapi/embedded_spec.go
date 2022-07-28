@@ -29,17 +29,18 @@ func init() {
   ],
   "swagger": "2.0",
   "info": {
-    "description": "Run gcp in Direktiv",
+    "description": "Google Cloud CLI",
     "title": "gcp",
     "version": "1.0",
     "x-direktiv-meta": {
       "categories": [
-        "unknown"
+        "cloud",
+        "build"
       ],
       "container": "gcr.io/direktiv/apps/gcp",
       "issues": "https://github.com/direktiv-apps/gcp/issues",
       "license": "[Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)",
-      "long-description": "Run gcp in Direktiv as a function",
+      "long-description": "This function provides Google Cloud's command line interface version 395.0.0. It has ` + "`" + `gscloud` + "`" + ` and ` + "`" + `gsutil` + "`" + ` installed.  Please make sure to append ` + "`" + `--format=json` + "`" + ` if a JSON response of a command is required. ",
       "maintainer": "[direktiv.io](https://www.direktiv.io) ",
       "url": "https://github.com/direktiv-apps/gcp"
     }
@@ -69,9 +70,15 @@ func init() {
               "type": "object",
               "required": [
                 "key",
-                "project"
+                "project",
+                "account"
               ],
               "properties": {
+                "account": {
+                  "description": "Google Cloud service account name",
+                  "type": "string",
+                  "example": "myserviceaccount@myproject.iam.gserviceaccount.com"
+                },
                 "commands": {
                   "description": "Array of commands.",
                   "type": "array",
@@ -80,7 +87,8 @@ func init() {
                     "properties": {
                       "command": {
                         "description": "Command to run",
-                        "type": "string"
+                        "type": "string",
+                        "example": "gcloud compute instances list --format=json"
                       },
                       "continue": {
                         "description": "Stops excecution if command fails, otherwise proceeds with next command",
@@ -107,10 +115,12 @@ func init() {
                   }
                 },
                 "key": {
-                  "description": "Google cloud JSON key base64 encoded",
-                  "type": "string"
+                  "description": "Google Cloud JSON key base64 encoded",
+                  "type": "string",
+                  "example": "L05ZXG4wTjJSZXQ2NGdYblc0c201a3hZV1R2MFFObnN2V2Vqc1=="
                 },
                 "project": {
+                  "description": "Google Cloud project name",
                   "type": "string"
                 }
               }
@@ -146,11 +156,13 @@ func init() {
             "examples": {
               "gcp": [
                 {
-                  "result": null,
-                  "success": true
-                },
-                {
-                  "result": null,
+                  "result": {
+                    "canIpForward": false,
+                    "confidentialInstanceConfig": {
+                      "enableConfidentialCompute": false
+                    },
+                    "cpuPlatform": "Unknown CPU Platform"
+                  },
                   "success": true
                 }
               ]
@@ -214,7 +226,7 @@ func init() {
         },
         "x-direktiv-examples": [
           {
-            "content": "- id: gcp\n  type: action\n  action:\n    function: gcp\n    input: \n      commands:\n      - command: Example of running gcp",
+            "content": "- id: gcp\n  type: action\n  action:\n    function: gcp\n    secrets: [\"gcpJSONKey\", \"gcpProject\", \"gcpAccount\"]\n    input: \n      account: jq(.secrets.gcpAccount)\n      project: jq(.secrets.gcpProject)\n      key: jq(.secrets.gcpJSONKey)\n      commands:\n      - command: gcloud compute instances list --format=json",
             "title": "Basic"
           }
         ],
@@ -227,6 +239,10 @@ func init() {
           {
             "description": "Google Cloud project",
             "name": "gcpProject"
+          },
+          {
+            "description": "Google Cloud service account",
+            "name": "gcpAccount"
           }
         ]
       },
@@ -289,17 +305,18 @@ func init() {
   ],
   "swagger": "2.0",
   "info": {
-    "description": "Run gcp in Direktiv",
+    "description": "Google Cloud CLI",
     "title": "gcp",
     "version": "1.0",
     "x-direktiv-meta": {
       "categories": [
-        "unknown"
+        "cloud",
+        "build"
       ],
       "container": "gcr.io/direktiv/apps/gcp",
       "issues": "https://github.com/direktiv-apps/gcp/issues",
       "license": "[Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)",
-      "long-description": "Run gcp in Direktiv as a function",
+      "long-description": "This function provides Google Cloud's command line interface version 395.0.0. It has ` + "`" + `gscloud` + "`" + ` and ` + "`" + `gsutil` + "`" + ` installed.  Please make sure to append ` + "`" + `--format=json` + "`" + ` if a JSON response of a command is required. ",
       "maintainer": "[direktiv.io](https://www.direktiv.io) ",
       "url": "https://github.com/direktiv-apps/gcp"
     }
@@ -339,11 +356,13 @@ func init() {
             "examples": {
               "gcp": [
                 {
-                  "result": null,
-                  "success": true
-                },
-                {
-                  "result": null,
+                  "result": {
+                    "canIpForward": false,
+                    "confidentialInstanceConfig": {
+                      "enableConfidentialCompute": false
+                    },
+                    "cpuPlatform": "Unknown CPU Platform"
+                  },
                   "success": true
                 }
               ]
@@ -407,7 +426,7 @@ func init() {
         },
         "x-direktiv-examples": [
           {
-            "content": "- id: gcp\n  type: action\n  action:\n    function: gcp\n    input: \n      commands:\n      - command: Example of running gcp",
+            "content": "- id: gcp\n  type: action\n  action:\n    function: gcp\n    secrets: [\"gcpJSONKey\", \"gcpProject\", \"gcpAccount\"]\n    input: \n      account: jq(.secrets.gcpAccount)\n      project: jq(.secrets.gcpProject)\n      key: jq(.secrets.gcpJSONKey)\n      commands:\n      - command: gcloud compute instances list --format=json",
             "title": "Basic"
           }
         ],
@@ -420,6 +439,10 @@ func init() {
           {
             "description": "Google Cloud project",
             "name": "gcpProject"
+          },
+          {
+            "description": "Google Cloud service account",
+            "name": "gcpAccount"
           }
         ]
       },
@@ -500,9 +523,15 @@ func init() {
       "type": "object",
       "required": [
         "key",
-        "project"
+        "project",
+        "account"
       ],
       "properties": {
+        "account": {
+          "description": "Google Cloud service account name",
+          "type": "string",
+          "example": "myserviceaccount@myproject.iam.gserviceaccount.com"
+        },
         "commands": {
           "description": "Array of commands.",
           "type": "array",
@@ -518,10 +547,12 @@ func init() {
           }
         },
         "key": {
-          "description": "Google cloud JSON key base64 encoded",
-          "type": "string"
+          "description": "Google Cloud JSON key base64 encoded",
+          "type": "string",
+          "example": "L05ZXG4wTjJSZXQ2NGdYblc0c201a3hZV1R2MFFObnN2V2Vqc1=="
         },
         "project": {
+          "description": "Google Cloud project name",
           "type": "string"
         }
       },
@@ -532,7 +563,8 @@ func init() {
       "properties": {
         "command": {
           "description": "Command to run",
-          "type": "string"
+          "type": "string",
+          "example": "gcloud compute instances list --format=json"
         },
         "continue": {
           "description": "Stops excecution if command fails, otherwise proceeds with next command",

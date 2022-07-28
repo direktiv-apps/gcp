@@ -2,7 +2,7 @@
 
 // Package restapi gcp
 //
-//  Run gcp in Direktiv
+//  Google Cloud CLI
 //  Schemes:
 //    http
 //  Host: localhost
