@@ -34,7 +34,7 @@ functions:
     input: 
       account: jq(.secrets.gcpAccount)
       project: jq(.secrets.gcpProject)
-      key: jq(.secrets.gcpJSONKey)
+      key: jq(.secrets.gcpJSONKey | @base64 )
       commands:
       - command: gcloud compute instances list --format=json
 ```
