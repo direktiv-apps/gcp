@@ -5,7 +5,7 @@ Google Cloud CLI
 
 ---
 - #### Categories: cloud, build
-- #### Image: gcr.io/direktiv/apps/gcp 
+- #### Image: gcr.io/direktiv/functions/gcp 
 - #### License: [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)
 - #### Issue Tracking: https://github.com/direktiv-apps/gcp/issues
 - #### URL: https://github.com/direktiv-apps/gcp
@@ -21,7 +21,7 @@ This function provides Google Cloud's command line interface version 395.0.0. It
 ```yaml
 functions:
 - id: gcp
-  image: gcr.io/direktiv/apps/gcp:1.0
+  image: gcr.io/direktiv/functions/gcp:1.0
   type: knative-workflow
 ```
    #### Basic

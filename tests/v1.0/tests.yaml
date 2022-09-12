@@ -2,7 +2,7 @@ url: ""
 functions:
 - type: knative-workflow
   id: gcp
-  image: gcr.io/direktiv/apps/gcp:test
+  image: gcr.io/direktiv/functions/gcp:test
 states:
 - id: state0
   type: action

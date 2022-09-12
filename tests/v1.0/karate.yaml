@@ -2,7 +2,7 @@ url: ""
 functions:
 - type: knative-workflow
   id: karate
-  image: gcr.io/direktiv/apps/karate:1.0
+  image: gcr.io/direktiv/functions/karate:1.0
 states:
 - id: run-test
   type: action
@@ -10,7 +10,7 @@ states:
     function: karate
     input:
       commands:
-      - command: java -DtestURL=jq(.host) -DgcpJSONKey=jq(.secrets.gcpJSONKey | @base64 ) -DgcpProject=jq(.secrets.gcpProject)
+      - command: java -DtestURL=jq(.host) -DgcpJSONKey=jq(.secrets.gcpJSONKey) -DgcpProject=jq(.secrets.gcpProject)
           -DgcpAccount=jq(.secrets.gcpAccount) -jar /karate.jar test.feature
         print: false
       - command: cat target/karate-reports/karate-summary-json.txt

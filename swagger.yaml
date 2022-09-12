@@ -4,7 +4,7 @@ info:
   title: gcp
   version: "1.0"
   x-direktiv-meta:
-    container: gcr.io/direktiv/apps/gcp
+    container: gcr.io/direktiv/functions/gcp
     maintainer: |-
       [direktiv.io](https://www.direktiv.io) 
     issues: https://github.com/direktiv-apps/gcp/issues
@@ -100,7 +100,7 @@ paths:
       x-direktiv-function: |-
         functions:
         - id: gcp
-          image: gcr.io/direktiv/apps/gcp:1.0
+          image: gcr.io/direktiv/functions/gcp:1.0
           type: knative-workflow
       x-direktiv-examples:
         # ADD MORE EXAMPLES HERE

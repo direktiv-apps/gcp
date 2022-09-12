@@ -85,8 +85,11 @@ func PostDirektivHandle(params PostParams) middleware.Responder {
 	responses = append(responses, ret)
 
 	// if foreach returns an error there is no continue
-	cont = convertTemplateToBool("false", accParams, true)
+	//
+	// default we do not continue
+	cont = convertTemplateToBool("false", accParams, false)
 	// cont = convertTemplateToBool("<no value>", accParams, true)
+	//
 
 	if err != nil && !cont {
 
@@ -113,8 +116,11 @@ func PostDirektivHandle(params PostParams) middleware.Responder {
 	responses = append(responses, ret)
 
 	// if foreach returns an error there is no continue
-	cont = convertTemplateToBool("false", accParams, true)
+	//
+	// default we do not continue
+	cont = convertTemplateToBool("false", accParams, false)
 	// cont = convertTemplateToBool("<no value>", accParams, true)
+	//
 
 	if err != nil && !cont {
 
@@ -141,8 +147,11 @@ func PostDirektivHandle(params PostParams) middleware.Responder {
 	responses = append(responses, ret)
 
 	// if foreach returns an error there is no continue
-	cont = convertTemplateToBool("false", accParams, true)
+	//
+	// default we do not continue
+	cont = convertTemplateToBool("false", accParams, false)
 	// cont = convertTemplateToBool("<no value>", accParams, true)
+	//
 
 	if err != nil && !cont {
 
@@ -169,8 +178,11 @@ func PostDirektivHandle(params PostParams) middleware.Responder {
 	responses = append(responses, ret)
 
 	// if foreach returns an error there is no continue
-	cont = convertTemplateToBool("<no value>", accParams, true)
+	//
+	// default we do not continue
+	cont = convertTemplateToBool("<no value>", accParams, false)
 	// cont = convertTemplateToBool("<no value>", accParams, true)
+	//
 
 	if err != nil && !cont {
 
@@ -197,7 +209,9 @@ func PostDirektivHandle(params PostParams) middleware.Responder {
 	responses = append(responses, ret)
 
 	// if foreach returns an error there is no continue
-	cont = false
+	//
+	// cont = false
+	//
 
 	if err != nil && !cont {
 

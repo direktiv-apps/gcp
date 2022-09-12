@@ -37,7 +37,7 @@ func init() {
         "cloud",
         "build"
       ],
-      "container": "gcr.io/direktiv/apps/gcp",
+      "container": "gcr.io/direktiv/functions/gcp",
       "issues": "https://github.com/direktiv-apps/gcp/issues",
       "license": "[Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)",
       "long-description": "This function provides Google Cloud's command line interface version 395.0.0. It has ` + "`" + `gscloud` + "`" + ` and ` + "`" + `gsutil` + "`" + ` installed.  Please make sure to append ` + "`" + `--format=json` + "`" + ` if a JSON response of a command is required. ",
@@ -230,7 +230,7 @@ func init() {
             "title": "Basic"
           }
         ],
-        "x-direktiv-function": "functions:\n- id: gcp\n  image: gcr.io/direktiv/apps/gcp:1.0\n  type: knative-workflow",
+        "x-direktiv-function": "functions:\n- id: gcp\n  image: gcr.io/direktiv/functions/gcp:1.0\n  type: knative-workflow",
         "x-direktiv-secrets": [
           {
             "description": "Google Cloud service account JSON keyfile, base64 encoded. The file should not have line wraps, e.g. 'base -w 0' on Linux.",
@@ -313,7 +313,7 @@ func init() {
         "cloud",
         "build"
       ],
-      "container": "gcr.io/direktiv/apps/gcp",
+      "container": "gcr.io/direktiv/functions/gcp",
       "issues": "https://github.com/direktiv-apps/gcp/issues",
       "license": "[Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)",
       "long-description": "This function provides Google Cloud's command line interface version 395.0.0. It has ` + "`" + `gscloud` + "`" + ` and ` + "`" + `gsutil` + "`" + ` installed.  Please make sure to append ` + "`" + `--format=json` + "`" + ` if a JSON response of a command is required. ",
@@ -430,7 +430,7 @@ func init() {
             "title": "Basic"
           }
         ],
-        "x-direktiv-function": "functions:\n- id: gcp\n  image: gcr.io/direktiv/apps/gcp:1.0\n  type: knative-workflow",
+        "x-direktiv-function": "functions:\n- id: gcp\n  image: gcr.io/direktiv/functions/gcp:1.0\n  type: knative-workflow",
         "x-direktiv-secrets": [
           {
             "description": "Google Cloud service account JSON keyfile, base64 encoded. The file should not have line wraps, e.g. 'base -w 0' on Linux.",
