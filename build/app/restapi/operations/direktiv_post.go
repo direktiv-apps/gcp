@@ -10,6 +10,17 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/strfmt"
 
+	// custom function imports
+	// end
+	// custom function imports
+	// end
+	// custom function imports
+	// end
+	// custom function imports
+	// end
+	// custom function imports
+	// end
+
 	"app/models"
 )
 
@@ -79,7 +90,6 @@ func PostDirektivHandle(params PostParams) middleware.Responder {
 		nil,
 		ri.Dir(),
 	}
-
 	ret, err = runCommand0(ctx, accParams, ri)
 
 	responses = append(responses, ret)
@@ -110,7 +120,6 @@ func PostDirektivHandle(params PostParams) middleware.Responder {
 
 	paramsCollector = append(paramsCollector, ret)
 	accParams.Commands = paramsCollector
-
 	ret, err = runCommand1(ctx, accParams, ri)
 
 	responses = append(responses, ret)
@@ -141,7 +150,6 @@ func PostDirektivHandle(params PostParams) middleware.Responder {
 
 	paramsCollector = append(paramsCollector, ret)
 	accParams.Commands = paramsCollector
-
 	ret, err = runCommand2(ctx, accParams, ri)
 
 	responses = append(responses, ret)
@@ -172,7 +180,6 @@ func PostDirektivHandle(params PostParams) middleware.Responder {
 
 	paramsCollector = append(paramsCollector, ret)
 	accParams.Commands = paramsCollector
-
 	ret, err = runCommand3(ctx, accParams, ri)
 
 	responses = append(responses, ret)
@@ -203,7 +210,6 @@ func PostDirektivHandle(params PostParams) middleware.Responder {
 
 	paramsCollector = append(paramsCollector, ret)
 	accParams.Commands = paramsCollector
-
 	ret, err = runCommand4(ctx, accParams, ri)
 
 	responses = append(responses, ret)
@@ -236,7 +242,7 @@ func PostDirektivHandle(params PostParams) middleware.Responder {
 	s, err := templateString(`{
   "gcp": {{ index . 4 | toJson }}
 }
-`, responses)
+`, responses, ri.Dir())
 	if err != nil {
 		return generateError(outErr, err)
 	}
@@ -267,7 +273,7 @@ func runCommand0(ctx context.Context,
 		params.DirektivDir,
 	}
 
-	cmd, err := templateString(`echo "gcp login and project configuration"`, at)
+	cmd, err := templateString(`echo "gcp login and project configuration"`, at, params.DirektivDir)
 	if err != nil {
 		ri.Logger().Infof("error executing command: %v", err)
 		ir[resultKey] = err.Error()
@@ -281,7 +287,13 @@ func runCommand0(ctx context.Context,
 
 	envs := []string{}
 
-	return runCmd(ctx, cmd, envs, output, silent, print, ri)
+	workingDir, err := templateString(``, at, params.DirektivDir)
+	if err != nil {
+		ir[resultKey] = err.Error()
+		return ir, err
+	}
+
+	return runCmd(ctx, cmd, envs, output, silent, print, ri, workingDir)
 
 }
 
@@ -300,7 +312,7 @@ func runCommand1(ctx context.Context,
 		params.DirektivDir,
 	}
 
-	cmd, err := templateString(`bash -c "echo {{ .Key }} | base64 -d > key.json"`, at)
+	cmd, err := templateString(`bash -c "echo {{ .Key }} | base64 -d > key.json"`, at, params.DirektivDir)
 	if err != nil {
 		ri.Logger().Infof("error executing command: %v", err)
 		ir[resultKey] = err.Error()
@@ -314,7 +326,13 @@ func runCommand1(ctx context.Context,
 
 	envs := []string{}
 
-	return runCmd(ctx, cmd, envs, output, silent, print, ri)
+	workingDir, err := templateString(``, at, params.DirektivDir)
+	if err != nil {
+		ir[resultKey] = err.Error()
+		return ir, err
+	}
+
+	return runCmd(ctx, cmd, envs, output, silent, print, ri, workingDir)
 
 }
 
@@ -333,7 +351,7 @@ func runCommand2(ctx context.Context,
 		params.DirektivDir,
 	}
 
-	cmd, err := templateString(`gcloud config set project direktiv`, at)
+	cmd, err := templateString(`gcloud config set project direktiv`, at, params.DirektivDir)
 	if err != nil {
 		ri.Logger().Infof("error executing command: %v", err)
 		ir[resultKey] = err.Error()
@@ -347,7 +365,13 @@ func runCommand2(ctx context.Context,
 
 	envs := []string{}
 
-	return runCmd(ctx, cmd, envs, output, silent, print, ri)
+	workingDir, err := templateString(``, at, params.DirektivDir)
+	if err != nil {
+		ir[resultKey] = err.Error()
+		return ir, err
+	}
+
+	return runCmd(ctx, cmd, envs, output, silent, print, ri, workingDir)
 
 }
 
@@ -366,7 +390,7 @@ func runCommand3(ctx context.Context,
 		params.DirektivDir,
 	}
 
-	cmd, err := templateString(`gcloud auth activate-service-account direktiv-function-test@direktiv.iam.gserviceaccount.com --key-file=key.json`, at)
+	cmd, err := templateString(`gcloud auth activate-service-account {{ .Account }} --key-file=key.json`, at, params.DirektivDir)
 	if err != nil {
 		ri.Logger().Infof("error executing command: %v", err)
 		ir[resultKey] = err.Error()
@@ -380,7 +404,13 @@ func runCommand3(ctx context.Context,
 
 	envs := []string{}
 
-	return runCmd(ctx, cmd, envs, output, silent, print, ri)
+	workingDir, err := templateString(``, at, params.DirektivDir)
+	if err != nil {
+		ir[resultKey] = err.Error()
+		return ir, err
+	}
+
+	return runCmd(ctx, cmd, envs, output, silent, print, ri, workingDir)
 
 }
 
@@ -410,7 +440,7 @@ func runCommand4(ctx context.Context,
 			params.DirektivDir,
 		}
 
-		cmd, err := templateString(`{{ .Item.Command }}`, ls)
+		cmd, err := templateString(`{{ .Item.Command }}`, ls, params.DirektivDir)
 		if err != nil {
 			ir := make(map[string]interface{})
 			ir[successKey] = false
@@ -426,7 +456,17 @@ func runCommand4(ctx context.Context,
 
 		envs := []string{}
 
-		r, err := runCmd(ctx, cmd, envs, output, silent, print, ri)
+		workingDir, err := templateString(``,
+			ls, params.DirektivDir)
+		if err != nil {
+			ir := make(map[string]interface{})
+			ir[successKey] = false
+			ir[resultKey] = err.Error()
+			cmds = append(cmds, ir)
+			continue
+		}
+
+		r, err := runCmd(ctx, cmd, envs, output, silent, print, ri, workingDir)
 		if err != nil {
 			ir := make(map[string]interface{})
 			ir[successKey] = false

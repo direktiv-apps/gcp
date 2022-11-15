@@ -136,7 +136,7 @@ paths:
           silent: true
           continue: false
         - action: exec
-          exec: gcloud config set project direktiv
+          exec: gcloud config set project {{ .Project }}
           continue: false
           print: false
         - action: exec

@@ -206,7 +206,7 @@ func init() {
             },
             {
               "action": "exec",
-              "exec": "gcloud auth activate-service-account direktiv-function-test@direktiv.iam.gserviceaccount.com --key-file=key.json"
+              "exec": "gcloud auth activate-service-account {{ .Account }} --key-file=key.json"
             },
             {
               "action": "foreach",
@@ -406,7 +406,7 @@ func init() {
             },
             {
               "action": "exec",
-              "exec": "gcloud auth activate-service-account direktiv-function-test@direktiv.iam.gserviceaccount.com --key-file=key.json"
+              "exec": "gcloud auth activate-service-account {{ .Account }} --key-file=key.json"
             },
             {
               "action": "foreach",
