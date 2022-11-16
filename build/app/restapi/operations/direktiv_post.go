@@ -351,7 +351,7 @@ func runCommand2(ctx context.Context,
 		params.DirektivDir,
 	}
 
-	cmd, err := templateString(`gcloud config set project direktiv`, at, params.DirektivDir)
+	cmd, err := templateString(`gcloud config set project {{ .Project }}`, at, params.DirektivDir)
 	if err != nil {
 		ri.Logger().Infof("error executing command: %v", err)
 		ir[resultKey] = err.Error()

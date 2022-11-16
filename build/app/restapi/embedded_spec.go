@@ -201,7 +201,7 @@ func init() {
             {
               "action": "exec",
               "continue": false,
-              "exec": "gcloud config set project direktiv",
+              "exec": "gcloud config set project {{ .Project }}",
               "print": false
             },
             {
@@ -401,7 +401,7 @@ func init() {
             {
               "action": "exec",
               "continue": false,
-              "exec": "gcloud config set project direktiv",
+              "exec": "gcloud config set project {{ .Project }}",
               "print": false
             },
             {
